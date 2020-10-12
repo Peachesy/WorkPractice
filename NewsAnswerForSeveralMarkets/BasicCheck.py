@@ -4,6 +4,7 @@ from langdetect import detect_langs
 from selenium import webdriver
 import pandas as pd
 import time
+from langdetect import DetectorFactory
 
 
 # 检查不同market的UI和搜索、跳转功能，分为几块：
@@ -53,6 +54,11 @@ def FeatureTest():
         driver.find_element_by_class_name("btn next rounded bld").click()
 
 def DetectLang():
-    return
+    DetectorFactory.seed=0   # Make the result unique.
+    ExpText = "¡Beijing le da la bienvenida!"
 
-FeatureTest()
+    print(detect(ExpText))        # Langs
+    print(detect_langs(ExpText))  # Langs and its probability
+
+# FeatureTest()
+DetectLang()
