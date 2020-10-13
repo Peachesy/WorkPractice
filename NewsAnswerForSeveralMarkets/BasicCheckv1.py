@@ -56,7 +56,11 @@ def FeatureTest(links):
             driver.execute_script(js4, div)
 
             # Page jump
-            driver.find_element_by_xpath(div).click()
+            # 3 kinds news answer:
+            # 1.smab na_overlay_softopt
+            # 2.
+            # 3.
+            div.find_element_by_xpath('//div[@class="smab na_overlay_softopt"]/./././div[@class="b_overlay"]').click()
             time.sleep(5)
             driver.back()
             time.sleep(2)
