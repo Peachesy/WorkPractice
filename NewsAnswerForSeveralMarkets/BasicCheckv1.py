@@ -66,7 +66,7 @@ def FeatureTest(links):
 
             try:
                 # find election news
-                driver.find_element_by_xpath('//div[@class="elec-modRoot elec-newsMod  b_canvas"]')
+                driver.find_element_by_xpath('//div[@class="elec-modRoot elec-newsMod b_canvas"]')
             except NoSuchElementException:
                 try:
                     driver.find_element_by_xpath('//div[@class="ans_nws"]')
@@ -89,7 +89,7 @@ def FeatureTest(links):
                             print("Script bug!!!")
                         else:
                             driver.find_element_by_xpath(
-                                '//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@class="na_cnt"]/div[@class="nws_cwrp nws_itm"]/div[@class="b_clearfix b_overflow"]').click()
+                                '//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@class="na_cnt"]/div[@class="nws_cwrp nws_itm"]').click() #/div[@class="b_clearfix b_overflow"]
                             time.sleep(5)
                             driver.back()
                             time.sleep(3)
