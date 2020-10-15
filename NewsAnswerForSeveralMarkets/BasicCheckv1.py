@@ -18,6 +18,9 @@ from selenium.common.exceptions import NoSuchElementException
 # Datas = pd.read_csv(FilePath,usecols=['OS','Browser','SerpTestLink'])
 # print(Datas)
 
+# Create a csv file to record data
+# Structure: Link,Keyword1,Result,Keyword2,Result,Keyword3,Result,Keyword4,Result
+
 FilePath = r'E:\WorkFiles\NewsAnswersForSeveralMarkets\MarketListForTest.csv'
 with open(FilePath,'r+') as f:
     reader = csv.DictReader(f)
@@ -30,7 +33,7 @@ def FeatureTest(links):
     length = len(links)
     Klength = len(KeyWordsList)
     print("---------------The number of links(markets)----------------")
-    print(length)
+    # print(length)
 
     for url in links:
         # open the opened chrome
@@ -52,17 +55,6 @@ def FeatureTest(links):
         print("-------------New maket--------------")
         print(url)
         for i in range(4):
-            # Search
-            if(i>0):
-                randomnum = random.randint(0, Klength - 1)
-                # print(randomnum)
-                print("---Search key word is :",KeyWordsList[randomnum])
-
-                marketURL = url.split('&')
-                # print("length of marketURL",length(marketURL))
-                newURL = "https://www.bing.com/search?q=" + KeyWordsList[randomnum] + "&" + marketURL[1] + "&" + marketURL[2]
-                print("---Search URL is :",newURL)
-                driver.get(newURL)
 
             try:
                 # find election news
@@ -191,13 +183,24 @@ def FeatureTest(links):
                         '//div[@class="elec-modRoot elec-newsMod  b_canvas"]/div[@class="elec-modRoot-data"]/div[@class="b_canvas b_slideexp"]/div[@class="b_overlay"]/div[@class="btn prev rounded bld"]').click()
                     time.sleep(2)
 
+            # Search
+            if (i > 0):
+                randomnum = random.randint(0, Klength - 1)
+                # print(randomnum)
+                print("---Search key word is :", KeyWordsList[randomnum])
 
-
+                marketURL = url.split('&')
+                # print("length of marketURL",length(marketURL))
+                newURL = "https://www.bing.com/search?q=" + KeyWordsList[randomnum] + "&" + marketURL[1] + "&" + \
+                         marketURL[2]
+                print("---Search URL is :", newURL)
+                driver.get(newURL)
 
         # driver.close()
         # Clear cookies
         cookies = driver.get_cookies()
         print(f"main:cookies = {cookies}")
         driver.delete_all_cookies()
+
 
 FeatureTest(LinkList)
