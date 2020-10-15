@@ -1,6 +1,8 @@
 from selenium import webdriver
 import time
 
+from selenium.common.exceptions import NoSuchElementException
+
 URL = "https://www.bing.com/search?q=trump&setflight=NAMktPref&mkt=chr-cher-us"
 keyword = "trump"
 marketURL = str(URL).split('&')
