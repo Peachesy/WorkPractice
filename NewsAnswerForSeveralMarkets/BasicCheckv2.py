@@ -82,6 +82,7 @@ def FeatureTest(links):
             # Search and skip the keyword trump
             if(i>0):
                 # generate a random number to choose keyword
+
                 randomnum = random.randint(0, Klength - 1)
                 # print(randomnum)
                 print("**Search key word is :",KeyWordsList[randomnum])
@@ -116,25 +117,25 @@ def FeatureTest(links):
                         # find hero card
                         try:
                             driver.find_element_by_xpath(
-                                '//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@class="na_cnt"]/div[@class="na_ti"]/./div[@class="b_clearfix b_overflow"]')
+                                '//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@class="na_cnt"]/div[@class="na_ti"]/div[@class="nws_cwrp nws_itm"]/div[@class="b_clearfix b_overflow"]')
                         except NoSuchElementException:
                             # No hero card, So it is a normal news only news
                             try:
                                 # find normal news
-                                driver.find_element_by_xpath('//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@id="na_cnt"]/div[@id="na_cl"]/./div[@class="b_overlay"]')
+                                driver.find_element_by_xpath('//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@id="na_cnt"]/div[@id="na_cl"]/div[@class="b_canvas b_slideexp"]/div[@class="b_overlay"]')
                             except NoSuchElementException:
                                 print(KeyWordsList[randomnum], "did not trigger news!")
                                 SearchList['Result'] = "Failed"
                             else:
                                 ScrollToNews(r'//div[@class="ans_nws"]')
-                                OpenLinks(r'//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@id="na_cnt"]/div[@id="na_cl"]/./div[@class="b_overlay"]')
-                                TurnPage(r'//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@id="na_cnt"]/div[@id="na_cl"]/./div[@class="b_overlay"]/div[@class="btn next rounded bld"]')
-                                TurnPage(r'//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@id="na_cnt"]/div[@id="na_cl"]/./div[@class="b_overlay"]/div[@class="btn prev rounded bld"]')
+                                OpenLinks(r'//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@id="na_cnt"]/div[@id="na_cl"]/div[@class="b_canvas b_slideexp"]/div[@class="b_overlay"]')
+                                TurnPage(r'//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@id="na_cnt"]/div[@id="na_cl"]/div[@class="b_canvas b_slideexp"]/div[@class="b_overlay"]/div[@class="btn next rounded bld"]')
+                                TurnPage(r'//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@id="na_cnt"]/div[@id="na_cl"]/div[@class="b_canvas b_slideexp"]/div[@class="b_overlay"]/div[@class="btn prev rounded bld"]')
                                 SearchList['Result'] = "Success"  # Only normal news
 
                         else:
                             # find and click hero card
-                            OpenLinks(r'//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@class="na_cnt"]/div[@class="na_ti"]/./div[@class="b_clearfix b_overflow"]')
+                            OpenLinks(r'//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@class="na_cnt"]/div[@class="na_ti"]/div[@class="nws_cwrp nws_itm"]/div[@class="b_clearfix b_overflow"]')
                         # find if have normal news
                             try:
                                 # find normal news
@@ -166,15 +167,15 @@ def FeatureTest(links):
                     # And then find normal news of election news
                     try:
                         # find normal news
-                        driver.find_element_by_xpath('//div[@class="elec-modRoot-data"]/././div[@class="b_overlay"]')
+                        driver.find_element_by_xpath('//div[@class="elec-modRoot-data"]/div[@class="b_canvas b_slideexp"]/div[@class="b_overlay"]')
                     except NoSuchElementException:
                         print("No election news trigger!!!")
                     else:
                         # find normal news and click
-                        OpenLinks(r'//div[@class="elec-modRoot-data"]/././div[@class="b_overlay"]')
+                        OpenLinks(r'//div[@class="elec-modRoot-data"]/div[@class="b_canvas b_slideexp"]/div[@class="b_overlay"]')
                         # Turn page
-                        TurnPage(r'//div[@class="elec-modRoot-data"]/././div[@class="b_overlay"]/div[@class="btn next rounded bld"]')
-                        TurnPage(r'//div[@class="elec-modRoot-data"]/././div[@class="b_overlay"]/div[@class="btn prev rounded bld"]')
+                        TurnPage(r'//div[@class="elec-modRoot-data"]/div[@class="b_canvas b_slideexp"]/div[@class="b_overlay"]/div[@class="btn next rounded bld"]')
+                        TurnPage(r'//div[@class="elec-modRoot-data"]/div[@class="b_canvas b_slideexp"]/div[@class="b_overlay"]/div[@class="btn prev rounded bld"]')
                         print(KeyWordsList[randomnum],"triggered election normal news")
                         SearchList['Result'] = "Success!"
 
@@ -215,5 +216,6 @@ print(f"main:cookies = {cookies}")
 driver.delete_all_cookies()
 KeyWordsList = ['British royal family','coffee','travel','news today', 'biden','Google','local news','facebook','election2020']
 Klength = len(KeyWordsList)
+
 
 FeatureTest(LinkList)
