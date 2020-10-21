@@ -21,7 +21,7 @@ from selenium.common.exceptions import NoSuchElementException
 # Create a csv file to record data
 # Structure: Link,Keyword1,Result,Keyword2,Result,Keyword3,Result,Keyword4,Result
 
-FilePath = r'E:\WorkFiles\NewsAnswersForSeveralMarkets\MarketListForTest.csv'
+FilePath = r'E:\WorkFiles\NewsAnswersForSeveralMarkets\70-100.csv'
 with open(FilePath,'r+') as f:
     reader = csv.DictReader(f)
     # print(reader)

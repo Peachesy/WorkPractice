@@ -53,6 +53,14 @@ def ResultToCVS(searchLink,resultList):
         # write data
         writer.writerows([[searchLink, "en-gb", "news today"]])
 
+def Preparation():
+    # Preparation
+    driver.get("https://www.bing.com/?mkt=en-us")
+    driver.maximize_window()
+    time.sleep(3)
+    driver.find_element_by_xpath('//div[@id="idCont"]/span[@class="sw_mktsw"]/a[@class="sw_lang"]').click()
+    driver.find_element_by_xpath('//div[@id="idCont"]/span[@class="sw_mktsw"]/a[@class="sw_lang"]').click()
+
 
 # Main test script
 def FeatureTest(links):
@@ -60,13 +68,8 @@ def FeatureTest(links):
     print("---------------The number of links(markets)----------------")
     print("The number of links:",length)
 
-    # Preparation
-    driver.get("https://www.bing.com/?mkt=en-us")
-    driver.maximize_window()
-    time.sleep(5)
-
-
     for url in links:
+        Preparation()
         SearchList["link"] = url
         driver.get(url)
         time.sleep(2)
@@ -89,7 +92,6 @@ def FeatureTest(links):
                 driver.get(newURL)
                 SearchList['Keyword'] = KeyWordsList[randomnum]
 
-
             try:
                 # find election news
                 driver.find_element_by_xpath('//div[@class="elec-modRoot elec-newsMod b_canvas"]')
@@ -98,7 +100,7 @@ def FeatureTest(links):
                     driver.find_element_by_xpath('//div[@class="ans_nws"]')
                 except NoSuchElementException:
                     print(KeyWordsList[randomnum],"did not trigger news answer!")
-                    SearchList['Result'] = "did not trigger news answer!"
+                    SearchList['Result'] = "Failed"
 
                     # print(i)
                 else:
@@ -107,15 +109,15 @@ def FeatureTest(links):
                         driver.find_element_by_xpath(
                             '//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@class="na_cnt"]')
                     except NoSuchElementException:
-                        print("Script bug!!!")
-                        SearchList['Result'] = "Script bug!!!"
+                        print(KeyWordsList[randomnum],"did not trigger election news!")
+                        SearchList['Result'] = "Failed"
                     else:
                         # item news
                         try:
                             driver.find_element_by_xpath(
                                 '//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@class="na_cnt"]/div[@class="nws_cwrp nws_itm"]')
                         except NoSuchElementException:
-                            print("Script bug!!!")
+                            print(KeyWordsList[randomnum],"Script bug!!!")
                             SearchList['Result'] = "Script bug!!!"
                         else:
                             # Click links
@@ -126,7 +128,7 @@ def FeatureTest(links):
                             driver.find_element_by_xpath(
                                 '//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@class="na_cnt"]/div[@class="na_ti"]')
                         except NoSuchElementException:
-                            print("News answer with no hero card!")
+                            print(KeyWordsList[randomnum], "News answer with no hero card!")
                             SearchList['Result'] = "News answer with no hero card!"
 
                             try:
@@ -134,8 +136,8 @@ def FeatureTest(links):
                                 driver.find_element_by_xpath(
                                     '//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@class="na_cnt"]/div[@id="na_cl"]/div[@class="b_canvas b_slideexp"]/div[@class="b_overlay"]')
                             except NoSuchElementException:
-                                print("There must be a bug!")
-                                SearchList['Result'] = "There must be a bug!"
+                                print(KeyWordsList[randomnum], "There must be a bug!")
+                                SearchList['Result'] = "Failed"
                             else:
                                 # Slide to election news position
                                 ScrollToNews(r'//div[@class="ans_nws"]')
@@ -146,6 +148,7 @@ def FeatureTest(links):
                                 # Turn page
                                 TurnPage(r'//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@class="na_cnt"]/div[@id="na_cl"]/div[@class="b_canvas b_slideexp"]/div[@class="b_overlay"]/div[@class="btn next rounded bld"]')
                                 TurnPage(r'//div[@class="ans_nws"]/div[@class="smab na_overlay_softopt"]/div[@class="na_cnt"]/div[@id="na_cl"]/div[@class="b_canvas b_slideexp"]/div[@class="b_overlay"]/div[@class="btn prev rounded bld"]')
+                                SearchList['Result'] = "Success"
                         else:
                             time.sleep(2)
 
