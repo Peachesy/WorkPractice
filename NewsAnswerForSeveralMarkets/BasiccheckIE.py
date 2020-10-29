@@ -4,7 +4,6 @@ import time
 import random
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.action_chains import ActionChains
 
 # 检查不同market的UI和搜索、跳转功能，分为几块：
 # 1.读取csv文件
@@ -66,15 +65,6 @@ def Preparation():
     time.sleep(3)
     driver.find_element_by_xpath('//div[@id="idCont"]/span[@class="sw_mktsw"]/a[@class="sw_lang"]').click()
     driver.find_element_by_xpath('//div[@id="idCont"]/span[@class="sw_mktsw"]/a[@class="sw_lang"]').click()
-    time.sleep(2)
-    # hover = driver.find_element_by_xpath('//span[@id="id_s"]')
-    # ActionChains(driver).move_to_element(hover).perform()
-    # driver.find_element_by_xpath('//span[@id="id_s"]').click()
-    # time.sleep(2)
-    # driver.find_element_by_xpath('//span[@id="id_d"]/ul[@id="b_idProviders"]/li[@data-tag="IdentityDropdown.Provider"]/a[@role="menuitem"]/span[contains(text(),"Work or school account")]').click()
-    # time.sleep(2)
-    # breakpoint()
-    # time.sleep(3)
 
 
 # Main test script
@@ -217,9 +207,7 @@ def FeatureTest(links):
 
         # Clear cookies
         ClearCookies()
-        # driver.quit()
     print(DataRecord)
-
 # Feature test end
 
 # Record original link,keywords and result
@@ -234,12 +222,13 @@ with open(FilePath,'r+') as f:
 # print(LinkList)
 
 # get webdriver object
-chrome_options = Options()
-# close bar "Chrome正在受到自动软件的控制"
-chrome_options.add_argument("disable-infobars")
-# 允许浏览器重定向
-chrome_options.add_argument("disable-web-security")
-driver = webdriver.Chrome(options=chrome_options)
+# chrome_options = Options()
+# # close bar "Chrome正在受到自动软件的控制"
+# chrome_options.add_argument("disable-infobars")
+# # 允许浏览器重定向
+# chrome_options.add_argument("disable-web-security")
+# driver = webdriver.Chrome(options=chrome_options)
+driver = webdriver.Firefox()
 # clear cookies
 cookies = driver.get_cookies()
 # print(f"main:cookies = {cookies}")

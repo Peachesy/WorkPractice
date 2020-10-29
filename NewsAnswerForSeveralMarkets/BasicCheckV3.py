@@ -4,6 +4,9 @@ import time
 import random
 from selenium.common.exceptions import NoSuchElementException
 
+# To resolve issues about bing.com: show a page about having problem when sign in.
+# Try to open a browser again when there is a new link. And close browser when finish operating.
+
 # 检查不同market的UI和搜索、跳转功能，分为几块：
 # 1.读取csv文件
 # 2.根据文件中不同的浏览器内容使用不同的浏览器打开链接
