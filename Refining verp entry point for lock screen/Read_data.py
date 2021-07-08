@@ -3,7 +3,7 @@ import pandas as pd
 domain = "http://stcav-867/"
 
 # 读取数据文件
-data = pd.read_csv("test.csv")
+data = pd.read_csv("Data.csv")
 # print("读取的数据结果：",data)
 # 通过pandas DataFrame values把读取的CSV结果转为list
 mapping_market = data.values.tolist()  # 二维列表

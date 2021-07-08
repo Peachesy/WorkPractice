@@ -15,8 +15,6 @@ class Check_page:
     no_top_stories_title = []
     did_not_select_top_stories = []
 
-    # 检查lock screen page是否有entry point以及verp page中的“Top stories”是否满足条件
-    # def Check_entry_point(self,urllist):
     def Check_Features(self,market,driver,urllist,setting_button,news_button,search_box,title,category_TopStories):
 
         try:
@@ -30,7 +28,7 @@ class Check_page:
                 # 悬浮在setting按钮上使其他按钮出现
                 ActionChains(driver).move_to_element(move).perform()
                 driver.find_element_by_xpath(news_button)
-                time.sleep(3)
+                time.sleep(2)
             except NoSuchElementException:
                 # ！！！这里需要验证该market是否已经加入到列表中，如果已加入则不再追加
                 self.no_entry_point.append(market)
