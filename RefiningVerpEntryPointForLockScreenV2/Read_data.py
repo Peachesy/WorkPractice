@@ -5,12 +5,12 @@ import pandas as pd
 domain = "http://stcav-867/news/search?q="
 
 # 读取数据文件
-data = pd.read_csv("data.csv")
+data = pd.read_csv("test.csv")
 # print(data)
 # print(type(data))
 True_market = data['True market'].tolist()
 
-# print("True market的值：", True_market)
+print("True market的值：", True_market)
 
 # 拼接链接
 links = []
@@ -33,6 +33,7 @@ for n in forms:
 
 union_key = []
 
+
 # 在每个key后面增加一个-form，作为字典的key
 for i in forms:
     for j in True_market:
@@ -40,7 +41,6 @@ for i in forms:
         union_key.append(temp)
 
 # print("组合后的key：", union_key)
-
 
 # 把读取的数据拼接为字典
 market_data = dict(zip(union_key, links))
