@@ -3,7 +3,11 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from time import sleep
 
 
+
+
 class Base:
+
+
 
     # base_url = "http://stcav-867/?mkt=en-us&setlang=en"
 
@@ -24,6 +28,21 @@ class Base:
             return self.driver.find_element(*by)
         else:
             return self.driver.find_element(by=by, value=locator)
+
+    # remove the special charactor of para a and replace it with " "
+    def remove_special_charactor(self,verp_url):
+
+        from VerticalLandingExperience.PO.NewsVerp import NewsVerp
+        nv = NewsVerp()
+
+        temp_list = verp_url.split("&")
+        para_q = temp_list[0].split("q=")
+        nv.paraq_text = para_q[1].replace("+", " ")
+
+        return nv.paraq_text
+
+    def tear_down(self):
+        self.driver.quit()
 
 
 

@@ -7,7 +7,7 @@ from VerticalLandingExperience.PO.NewsVerp import NewsVerp
 
 
 class BingHP(Base):
-    base_url = "http://stcav-867/?"
+    base_url = "https://www.bing.com/?"
 
     # elements in the page
     # setting_button = '//li[@id="dots_overflow_menu_container"]'
@@ -17,24 +17,23 @@ class BingHP(Base):
     no_entry_point_market = []
 
 
-    def go_to_verp(self,market_list):
-        for i in market_list:
-            new_url = self.base_url + "setmkt=" + i + "&setlang=" + i
-            self.driver.get(new_url)
-            sleep(3)
+    def go_to_verp(self,market):
+        new_url = self.base_url + "setmkt=" + market + "&setlang=" + market
+        self.driver.get(new_url)
+        sleep(3)
 
-            # floating the mouse to the setting button
+        # floating the mouse to the setting button
+        try:
+            floating_button = self.find(self.setting_button)
+        except NoSuchElementException:
+            self.no_setting_button_market.append(market)
+        else:
+            ActionChains(self.driver).move_to_element(floating_button).perform()
             try:
-                floating_button = self.find(self.setting_button)
+                # click news entry button
+                self.find(self.news_entry_button).click()
             except NoSuchElementException:
-                self.no_setting_button_market.append(market_list)
-            else:
-                ActionChains(self.driver).move_to_element(floating_button).perform()
-                try:
-                    # click news entry button
-                    self.find(self.news_entry_button).click()
-                except NoSuchElementException:
-                    self.no_entry_point_market.append(market_list)
+                self.no_entry_point_market.append(market)
 
 
         return NewsVerp(self.driver)
