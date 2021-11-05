@@ -36,7 +36,7 @@ def main():
             driver.find_element_by_id("bnp_container")
             time.sleep(3)
             driver.find_element_by_xpath(
-                '//div[@class="bnp_flex_wrapper"]/button/a[contains(@href,"javascript: void(0)")]').click()
+               '//div[@class="bnp_flex_wrapper"]/button[@id="bnp_btn_accept"]').click()
             time.sleep(5)
             print("检查cookie弹窗,发现弹窗")
             op.Check_Features(key, driver, value, setting_button, news_button, search_box, title, category_TopStories)

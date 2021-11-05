@@ -3,7 +3,7 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from time import sleep
 from VerticalLandingExperience.PO.Base import Base
-from VerticalLandingExperience.PO.NewsVerp import NewsVerp
+from VerticalLandingExperience.PO.NewsVerpTop import NewsVerp
 
 
 class BingHP(Base):
@@ -17,23 +17,24 @@ class BingHP(Base):
     no_entry_point_market = []
 
 
+
     def go_to_verp(self,market):
-        new_url = self.base_url + "setmkt=" + market + "&setlang=" + market
-        self.driver.get(new_url)
-        sleep(3)
+        for i in market:
+            new_url = self.base_url + "setmkt=" + i + "&setlang=" + i
+            self.driver.get(new_url)
+            sleep(3)
 
-        # floating the mouse to the setting button
-        try:
-            floating_button = self.find(self.setting_button)
-        except NoSuchElementException:
-            self.no_setting_button_market.append(market)
-        else:
-            ActionChains(self.driver).move_to_element(floating_button).perform()
+            # floating the mouse to the setting button
             try:
-                # click news entry button
-                self.find(self.news_entry_button).click()
+                floating_button = self.find(self.setting_button)
             except NoSuchElementException:
-                self.no_entry_point_market.append(market)
-
+                self.no_setting_button_market.append(i)
+            else:
+                ActionChains(self.driver).move_to_element(floating_button).perform()
+                try:
+                    # click news entry button
+                    self.find(self.news_entry_button).click()
+                except NoSuchElementException:
+                    self.no_entry_point_market.append(i)
 
         return NewsVerp(self.driver)

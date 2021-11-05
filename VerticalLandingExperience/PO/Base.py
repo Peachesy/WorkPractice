@@ -3,11 +3,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from time import sleep
 
 
-
-
 class Base:
-
-
 
     # base_url = "http://stcav-867/?mkt=en-us&setlang=en"
 
@@ -18,7 +14,7 @@ class Base:
             # Open BingHP
             # self.driver.get(self.base_url)
             self.driver.maximize_window()
-            self.driver.implicitly_wait(10)
+            self.driver.implicitly_wait(5)
         else:
             self.driver: WebDriver = base_driver
 
@@ -32,7 +28,7 @@ class Base:
     # remove the special charactor of para a and replace it with " "
     def remove_special_charactor(self,verp_url):
 
-        from VerticalLandingExperience.PO.NewsVerp import NewsVerp
+        from VerticalLandingExperience.PO.NewsVerpTop import NewsVerp
         nv = NewsVerp()
 
         temp_list = verp_url.split("&")
